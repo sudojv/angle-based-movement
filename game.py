@@ -2,6 +2,8 @@ import pygame
 
 from settings import Settings
 
+from hero import Hero
+
 class Game:
     '''Class to manage the game'''
     def __init__(self):
@@ -12,6 +14,8 @@ class Game:
         # Instance and setup screen
         self.screen = pygame.display.set_mode(self.settings.screen_size)
         pygame.display.set_caption(self.settings.screen_caption)
+        # Instace our might hero
+        self.hero = Hero(self)
         # Game loop flag attribute
         self.running = True
 
@@ -19,6 +23,9 @@ class Game:
         '''Runs the game main loop'''
         while self.running:
             self._update_events()
+
+            self.hero.update()
+
             self._update_screen()
     
     def _update_events(self):
@@ -35,14 +42,31 @@ class Game:
         '''Updates a keydown event'''
         if event.key == pygame.K_ESCAPE:
             self.running = False
+        elif event.key == pygame.K_LEFT:
+            self.hero.rotating_left = True
+        elif event.key == pygame.K_RIGHT:
+            self.hero.rotating_right = True
+        elif event.key == pygame.K_UP:
+            self.hero.moving_front = True
+        elif event.key == pygame.K_DOWN:
+            self.hero.moving_back = True
     
     def _update_keyup_event(self, event):
         '''Updates a keyup event'''
-        pass
+        if event.key == pygame.K_LEFT:
+            self.hero.rotating_left = False
+        elif event.key == pygame.K_RIGHT:
+            self.hero.rotating_right = False
+        elif event.key == pygame.K_UP:
+            self.hero.moving_front = False
+        elif event.key == pygame.K_DOWN:
+            self.hero.moving_back = False
     
     def _update_screen(self):
         '''Updates the game screen'''
         self.screen.fill(self.settings.screen_color)
+
+        self.hero.blit()
 
         pygame.display.flip()
 
