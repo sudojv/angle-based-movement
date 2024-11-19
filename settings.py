@@ -22,4 +22,8 @@ class Settings:
         self.hero_width = 25
         self.hero_height = 25
         self.hero_color = 'red'
+        # Grid settings
+        self.grid_rows = 10
+        self.grid_columns = 10
+        self.grid_color = 'darkgreen'
         

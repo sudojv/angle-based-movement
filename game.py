@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 
 from hero import Hero
+from grid import Grid
 
 class Game:
     '''Class to manage the game'''
@@ -14,6 +15,8 @@ class Game:
         # Instance and setup screen
         self.screen = pygame.display.set_mode(self.settings.screen_size)
         pygame.display.set_caption(self.settings.screen_caption)
+        # Instace the background grid
+        self.grid = Grid(self)
         # Instace our might hero
         self.hero = Hero(self)
         # Game loop flag attribute
@@ -66,6 +69,7 @@ class Game:
         '''Updates the game screen'''
         self.screen.fill(self.settings.screen_color)
 
+        self.grid.blit()
         self.hero.blit()
 
         pygame.display.flip()

@@ -34,8 +34,6 @@ class Hero:
         self.moving_back = False
 
     def update(self):
-        print(self.rect.center)
-
         self._update_movements()
 
     def _update_movements(self):
